@@ -3,9 +3,9 @@
   <h4 class="pt-3 text-left font-weight-bold">
     Products
     <transition name="fade">
-      <b-button @click="showAddProduct" v-b-modal.addproduct class="font-weight-bold float-right" variant="warning">
+      <router-link to="/add"><b-button v-b-modal.addproduct class="font-weight-bold float-right" variant="warning">
       Create New <font-awesome-icon :icon="['fas', 'plus-square']" />
-      </b-button>
+      </b-button></router-link>
     </transition>
   </h4>
   <table cellspacing="0" cellpadding="0" class="table">
@@ -37,13 +37,21 @@
           class=" ml-auto mr-auto bg-light" /></p></td>
         <td><p class="text-center font-weight-bold">{{product.name}}</p>
         </td>
-          <td class="font-weight-bold text-center" ><p style="font-size: 16px;">Rp. {{product.price}}</p></td>
+          <td class="font-weight-bold text-center" ><p style="font-size: 16px;">${{product.price}}.00</p></td>
         <td class=" text-center"><b-badge variant="warning" style="color: white; font-size: 20px;">{{product.stock}} Items left</b-badge></td>
         <td>
-          <b-dropdown id="dropdown-left" class="" variant="warning">
-            <b-dropdown-item @click="editProduct(product.id, product)">Edit</b-dropdown-item>
-            <b-dropdown-item @click="deleteProduct(product.id)" >Delete</b-dropdown-item>
-          </b-dropdown>
+          <div class="dropdown">
+            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <router-link to="/edit"><a @click="editProduct(product.id, product)" class="dropdown-item" href="#">Edit</a></router-link>
+              <a @click="deleteProduct(product.id)" class="dropdown-item" href="#">Delete</a>
+            </div>
+          </div>
+          <!-- <b-dropdown id="dropdown-left" class="" variant="warning">
+            <b-button @click="editProduct(product.id, product)">Edit</b-button>
+            <b-button @click="deleteProduct(product.id)" >Delete</b-button>
+          </b-dropdown> -->
         </td>
       </tr>
     </tbody>
@@ -84,7 +92,6 @@ export default {
     editProduct (id, payload) {
       payload.id = id
       this.$store.dispatch('bindEditForm', payload)
-      this.$emit('showEditProduct')
     }
   },
   mounted () {

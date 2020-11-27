@@ -13,7 +13,7 @@
       <p class="pt-3 font-weight-bold">
       <img width="350px" src="https://image.freepik.com/free-vector/warehouse-worker-checking-inventory_3446-395.jpg" />
       </p>
-      <h3 class="text-center font-weight-bold"> 0 Categories </h3>
+      <h3 class="text-center font-weight-bold"> {{categories}} Categories </h3>
     </div>
   </div>
   <hr>
@@ -101,6 +101,11 @@ export default {
       },
       set (newValue) {
         this.$store.state.stock = newValue
+      }
+    },
+    categories: {
+      get () {
+        return this.$store.state.categories.length
       }
     }
   }

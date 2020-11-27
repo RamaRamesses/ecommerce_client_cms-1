@@ -3,9 +3,9 @@
     <h4 class="pt-3 text-left font-weight-bold">
       Add Product
       <transition name="fade">
-        <b-button @click="showProducts" v-b-modal.addproduct class="font-weight-bold float-right" variant="info">
+        <router-link to="/products"><b-button v-b-modal.addproduct class="font-weight-bold float-right" variant="info">
         Back
-        </b-button>
+        </b-button></router-link>
       </transition>
     </h4>
     <hr>
@@ -17,6 +17,12 @@
         <div class="form-group text-left">
         <label for="productimage">Image</label>
         <input v-model="image_url" type="type" class="form-control" id="productimage" placeholder="Product Image">
+        </div>
+        <div class="form-group text-left">
+        <label for="category">Category</label>
+        <select v-model="category" class="form-control">
+            <option v-for="(categori, i) in categories" :key="i" :value="categori">{{categori}}</option>
+        </select>
         </div>
         <div class="form-group text-left">
         <label for="price">Price</label>
@@ -39,7 +45,8 @@ export default {
       name: '',
       image_url: '',
       price: 0,
-      stock: 0
+      stock: 0,
+      category: ''
     }
   },
   methods: {
@@ -53,11 +60,17 @@ export default {
         image_url: this.image_url,
         price: this.price,
         stock: this.stock,
+        category: this.category,
         accessToken: accessToken
       }
       this.$store.dispatch('addProduct', payload)
       this.$store.dispatch('fetchProducts', accessToken)
       this.$emit('onsubmit')
+    }
+  },
+  computed: {
+    categories () {
+      return this.$store.state.categories
     }
   }
 }

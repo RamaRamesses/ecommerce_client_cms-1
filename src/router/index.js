@@ -4,6 +4,11 @@ import Home from '../views/Home.vue'
 // import About from '../views/About.vue'
 import Detail from '../views/Detail.vue'
 import Login from '../views/Login.vue'
+import Dashboard from '../components/Dashboard.vue'
+import ProductList from '../components/ProductList.vue'
+import AddProduct from '../components/AddProduct.vue'
+import EditProduct from '../components/EditProduct.vue'
+import Category from '../components/Categories.vue'
 
 Vue.use(VueRouter)
 
@@ -11,7 +16,34 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '',
+        name: 'Dashboard',
+        component: Dashboard
+      },
+      {
+        path: 'products',
+        name: 'Products',
+        component: ProductList
+      },
+      {
+        path: 'add',
+        name: 'addproduct',
+        component: AddProduct
+      },
+      {
+        path: 'edit',
+        name: 'editproduct',
+        component: EditProduct
+      },
+      {
+        path: 'categories',
+        name: 'Category',
+        component: Category
+      }
+    ]
   },
   {
     path: '/login',
