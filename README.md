@@ -1,5 +1,10 @@
 # ecommerce_client_cms
 
+## Firebase deployment
+```
+https://ecommerce-cms-d51ab.web.app/
+```
+
 ## Project setup
 ```
 npm install
